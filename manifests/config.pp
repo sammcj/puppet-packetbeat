@@ -1,35 +1,41 @@
 class packetbeat::config() inherits packetbeat {
 
+  group { 'packetbeat':
+    ensure  => present,
+    gid     => '450',
+  }
+
+  user { 'packetbeat':
+    comment => 'packetbeat service',
+    home    => '/etc/packetbeat',
+    ensure  => present,
+    shell   => '/sbin/nologin',
+    uid     => '450',
+    gid     => '450',
+    require => Group['packetbeat'],
+  }
+
   file { '/etc/packetbeat/':
-    ensure => 'directory',
-    group  => '0',
-    mode   => '0755',
-    owner  => '0',
+    ensure  => 'directory',
+    owner   => 'packetbeat',
+    group   => 'packetbeat',
+    mode    => '0755',
+    require => User['packetbeat'],
   }
 
   concat { '/etc/packetbeat/packetbeat.conf':
-    group   => '0',
+    owner   => 'packetbeat',
+    group   => 'packetbeat',
     mode    => '0755',
-    owner   => '0',
-    notify  => Service['packetbeat']
+    notify  => Service['packetbeat'],
+    require => File['/etc/packetbeat/'],
   }
 
   concat::fragment {'head':
     target  => '/etc/packetbeat/packetbeat.conf',
     content => template('packetbeat/packetbeat.conf.erb'),
     order   => 0,
-  }
-
-  concat::fragment {'protocols':
-    target  => '/etc/packetbeat/packetbeat.conf',
-    content => '[protocols]
-',
-    order   => 19,
-  }
-  concat::fragment {'procs':
-    target  => '/etc/packetbeat/packetbeat.conf',
-    content => template('packetbeat/procs.conf.erb'),
-    order   => 39,
+    require => File['/etc/packetbeat/'],
   }
 
 }

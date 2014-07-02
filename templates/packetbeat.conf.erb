@@ -10,15 +10,14 @@
 
 [elasticsearch]
 # Set the host and port where to find Elasticsearch.
-host = "<%= @host %>"
-port = <%= @port %>
+host  = "<%= @host %>"
+port  = <%= @port %>
+index = "packetbeat"
 
 [interfaces]
 # Select on which network interfaces to sniff. You can use the "any"
 # keyword to sniff on all connected interfaces.
 device = "<%= @interfaces %>"
-
-
 
 [agent]
 # The name of the agent as it will show up in the web interface. If not
@@ -39,7 +38,7 @@ name= "<%= @agentname %>"
 uid=<%= @uid %>
 gid=<%= @gid %>
 
-[logging]
-# These are debug helpers to control the verbosity of logging.
-selectors = ["pinger"]
+#[logging]
+## These are debug helpers to control the verbosity of logging.
+#selectors = ["pinger"]
 

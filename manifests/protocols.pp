@@ -4,6 +4,7 @@ define packetbeat::protocols($protocol,$ports)
     target  => '/etc/packetbeat/packetbeat.conf',
     content => template('packetbeat/protocols.conf.erb'),
     order   => 20,
+    require => File['/etc/packetbeat/'],
   }
 }
 
