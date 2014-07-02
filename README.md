@@ -30,6 +30,14 @@ packetbeat::procs { 'postgresql':
 }
 ```
 
+## Uninstall
+
+```
+class { packetbeat:
+  ensure => 'absent',
+}
+```
+
 ## Authors
 
 Sam Mcleod <github.com/sammcj> (forked from Kris Buytaert <kris@inuits.eu>)

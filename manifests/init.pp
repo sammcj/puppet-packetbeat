@@ -26,6 +26,12 @@
 #   cmdline => 'postgres',
 # }
 #
+# === Uninstall
+#
+# class { packetbeat:
+#   ensure => 'absent',
+# }
+#
 # === Authors
 #
 # Sam Mcleod <github.com/sammcj> (forked from Kris Buytaert <kris@inuits.eu>)
@@ -48,11 +54,26 @@ class packetbeat (
   $gid            = $packetbeat::params::user,
   $uid            = $packetbeat::params::uid,
   $gid            = $packetbeat::params::gid,
+  $ensure         = 'present',
 ) inherits packetbeat::params {
 
-  include packetbeat::package
-  include packetbeat::config
-  include packetbeat::service
-  include packetbeat::index
+  case $ensure {
+    'absent': {
+      package { 'packetbeat':
+        ensure => purged,
+      }
+
+      file { ['/etc/packetbeat','/etc/packetbeat/packetbeat.template.json']:
+        ensure => absent,
+        force  => true,
+      }
+    }
+    default: {
+      include packetbeat::package
+      include packetbeat::config
+      include packetbeat::service
+      include packetbeat::index
+    }
+  }
 
 }

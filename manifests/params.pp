@@ -9,6 +9,7 @@ class packetbeat::params(
   $gid           = '450',
   $ensure        = 'running',
   $enable        = 'true',
+  $version       = 'latest',
 ){
 
 }
