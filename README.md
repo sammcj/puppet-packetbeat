@@ -15,8 +15,6 @@ uid                     - user to run as (450)
 gid                     - user to run as (450)
 ```
 
-## Variables
-
 ## Examples
 
 ```
