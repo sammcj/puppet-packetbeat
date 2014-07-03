@@ -18,12 +18,16 @@
 # === Examples
 #
 # class { packetbeat:
-#   host => 'int-elastic-01.serv.abb.ixa.net.au'
+#   host => 'elasticsearch.server.com'
+# }
+# packetbeat::procs { 'pgsql':
+#   procs   => 'pgsql',
+#   cmdline => 'postgres',
 # }
 #
-# packetbeat::procs { 'postgresql':
-#   procs   => 'postgres',
-#   cmdline => 'postgres',
+# packetbeat::procs { 'nginx':
+#   procs   => 'nginx',
+#   cmdline => 'nginx',
 # }
 #
 # === Uninstall

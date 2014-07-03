@@ -22,9 +22,14 @@ class { packetbeat:
   host => 'elasticsearch.server.com'
 }
 
-packetbeat::procs { 'postgresql':
-  procs   => 'postgres',
+packetbeat::procs { 'pgsql':
+  procs   => 'pgsql',
   cmdline => 'postgres',
+}
+
+packetbeat::procs { 'nginx':
+  procs   => 'nginx',
+  cmdline => 'nginx',
 }
 ```
 
